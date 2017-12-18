@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10553,7 +10553,71 @@ module.exports = Helpers;
 "use strict";
 
 
-__webpack_require__(5);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var $ = __webpack_require__(0);
+var Ajax = __webpack_require__(2);
+var COLORS = __webpack_require__(1);
+var Helpers = __webpack_require__(3);
+
+var HomeHandlers = function () {
+  function HomeHandlers() {
+    _classCallCheck(this, HomeHandlers);
+  }
+
+  _createClass(HomeHandlers, null, [{
+    key: 'matchSwatch',
+    value: function matchSwatch(area, value, valueArray, colorDir) {
+      var newArr = [];
+      colorDir.forEach(function (k) {
+        if (value.match(k)) {
+          newArr.push(k);
+        }
+      });
+      this.findHex(newArr);
+    }
+  }, {
+    key: 'findHex',
+    value: function findHex(newArr) {
+      var swatch = [];
+      newArr.forEach(function (i) {
+        swatch.push(COLORS[i]);
+      });
+      var uniqueSwatch = swatch.filter(Helpers.onlyUnique);
+      this.appendHexDiv(uniqueSwatch);
+      this.postColorToAjax(newArr);
+    }
+  }, {
+    key: 'appendHexDiv',
+    value: function appendHexDiv(uniqueSwatch) {
+      uniqueSwatch.forEach(function (color) {
+        $(".colorized-text").append('<div class="swatch" style="background-color:' + color + ';"></div>');
+      });
+    }
+  }, {
+    key: 'postColorToAjax',
+    value: function postColorToAjax(newArr) {
+      newArr.forEach(function (color) {
+        Ajax.postColor(color);
+      });
+    }
+  }]);
+
+  return HomeHandlers;
+}();
+
+module.exports = HomeHandlers;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(6);
 
 var _colors = __webpack_require__(1);
 
@@ -10561,22 +10625,24 @@ var _colors2 = _interopRequireDefault(_colors);
 
 __webpack_require__(2);
 
-__webpack_require__(10);
+__webpack_require__(11);
 
 __webpack_require__(3);
+
+__webpack_require__(4);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $ = __webpack_require__(0);
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(6);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -10584,7 +10650,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(8)(content, options);
+var update = __webpack_require__(9)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -10601,10 +10667,10 @@ if(false) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(7)(undefined);
+exports = module.exports = __webpack_require__(8)(undefined);
 // imports
 
 
@@ -10615,7 +10681,7 @@ exports.push([module.i, "main .text-submission textarea, main .text-submission b
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /*
@@ -10697,7 +10763,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -10753,7 +10819,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(9);
+var	fixUrls = __webpack_require__(10);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -11069,7 +11135,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 
@@ -11164,7 +11230,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11174,6 +11240,7 @@ var $ = __webpack_require__(0);
 var Ajax = __webpack_require__(2);
 var COLORS = __webpack_require__(1);
 var Helpers = __webpack_require__(3);
+var HomeHandlers = __webpack_require__(4);
 
 $(document).ready(function () {
   Ajax.topColor();
@@ -11186,23 +11253,7 @@ document.querySelector('#textarea').addEventListener('keypress', function (e) {
     var value = area.value;
     var valueArray = value.split(" ");
     var colorDir = Object.keys(COLORS);
-    var newArr = [];
-    colorDir.forEach(function (k) {
-      if (value.match(k)) {
-        newArr.push(k);
-      }
-    });
-    var swatch = [];
-    newArr.forEach(function (i) {
-      swatch.push(COLORS[i]);
-    });
-    var uniqueSwatch = swatch.filter(Helpers.onlyUnique);
-    uniqueSwatch.forEach(function (color) {
-      $(".colorized-text").append('<div class="swatch" style="background-color:' + color + ';"></div>');
-    });
-    newArr.forEach(function (color) {
-      Ajax.postColor(color);
-    });
+    HomeHandlers.matchSwatch(area, value, valueArray, colorDir);
   }
 });
 
