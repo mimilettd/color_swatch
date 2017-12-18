@@ -11179,28 +11179,31 @@ $(document).ready(function () {
   Ajax.topColor();
 });
 
-$("button").click(function () {
-  var area = document.getElementById("textarea");
-  var value = area.value;
-  var valueArray = value.split(" ");
-  var colorDir = Object.keys(COLORS);
-  var newArr = [];
-  colorDir.forEach(function (k) {
-    if (value.match(k)) {
-      newArr.push(k);
-    }
-  });
-  var swatch = [];
-  newArr.forEach(function (i) {
-    swatch.push(COLORS[i]);
-  });
-  var uniqueSwatch = swatch.filter(Helpers.onlyUnique);
-  uniqueSwatch.forEach(function (color) {
-    $(".colorized-text").append('<div class="swatch" style="background-color:' + color + ';"></div>');
-  });
-  newArr.forEach(function (color) {
-    Ajax.postColor(color);
-  });
+document.querySelector('#textarea').addEventListener('keypress', function (e) {
+  var key = e.which || e.keyCode;
+  if (key === 13) {
+    var area = document.getElementById("textarea");
+    var value = area.value;
+    var valueArray = value.split(" ");
+    var colorDir = Object.keys(COLORS);
+    var newArr = [];
+    colorDir.forEach(function (k) {
+      if (value.match(k)) {
+        newArr.push(k);
+      }
+    });
+    var swatch = [];
+    newArr.forEach(function (i) {
+      swatch.push(COLORS[i]);
+    });
+    var uniqueSwatch = swatch.filter(Helpers.onlyUnique);
+    uniqueSwatch.forEach(function (color) {
+      $(".colorized-text").append('<div class="swatch" style="background-color:' + color + ';"></div>');
+    });
+    newArr.forEach(function (color) {
+      Ajax.postColor(color);
+    });
+  }
 });
 
 /***/ })
