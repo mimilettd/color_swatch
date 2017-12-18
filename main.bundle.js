@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10525,7 +10525,35 @@ module.exports = Ajax;
 "use strict";
 
 
-__webpack_require__(4);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Helpers = function () {
+  function Helpers() {
+    _classCallCheck(this, Helpers);
+  }
+
+  _createClass(Helpers, null, [{
+    key: "onlyUnique",
+    value: function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+  }]);
+
+  return Helpers;
+}();
+
+module.exports = Helpers;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(5);
 
 var _colors = __webpack_require__(1);
 
@@ -10533,22 +10561,22 @@ var _colors2 = _interopRequireDefault(_colors);
 
 __webpack_require__(2);
 
-__webpack_require__(9);
-
 __webpack_require__(10);
+
+__webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var $ = __webpack_require__(0);
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -10556,7 +10584,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -10573,10 +10601,10 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(7)(undefined);
 // imports
 
 
@@ -10587,7 +10615,7 @@ exports.push([module.i, "main .text-submission textarea, main .text-submission b
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /*
@@ -10669,7 +10697,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -10725,7 +10753,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -11041,7 +11069,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -11136,7 +11164,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11145,6 +11173,7 @@ module.exports = function (css) {
 var $ = __webpack_require__(0);
 var Ajax = __webpack_require__(2);
 var COLORS = __webpack_require__(1);
+var Helpers = __webpack_require__(3);
 
 $(document).ready(function () {
   Ajax.topColor();
@@ -11165,7 +11194,7 @@ $("button").click(function () {
   newArr.forEach(function (i) {
     swatch.push(COLORS[i]);
   });
-  var uniqueSwatch = swatch.filter(onlyUnique);
+  var uniqueSwatch = swatch.filter(Helpers.onlyUnique);
   uniqueSwatch.forEach(function (color) {
     $(".colorized-text").append('<div class="swatch" style="background-color:' + color + ';"></div>');
   });
@@ -11173,34 +11202,6 @@ $("button").click(function () {
     Ajax.postColor(color);
   });
 });
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Helpers = function () {
-  function Helpers() {
-    _classCallCheck(this, Helpers);
-  }
-
-  _createClass(Helpers, null, [{
-    key: "onlyUnique",
-    value: function onlyUnique(value, index, self) {
-      return self.indexOf(value) === index;
-    }
-  }]);
-
-  return Helpers;
-}();
-
-module.exports = Helpers;
 
 /***/ })
 /******/ ]);
